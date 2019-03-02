@@ -1,0 +1,31 @@
+{
+  "name": "shareslide",
+  "version": "1.0.0",
+  "description": "A slideshare downloader built with typescript",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec ts-node -- src/index.ts -l https://www.slideshare.net/vtunotesbysree/vtu-5th-sem-cse-operating-systems-notes-10cs53 -q low -p ../ -f 1",
+    "ts-node": "ts-node src/index.ts",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaman-k/shareslide.git"
+  },
+  "author": "chaman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chaman-k/shareslide/issues"
+  },
+  "homepage": "https://github.com/chaman-k/shareslide#readme",
+  "dependencies": {
+    "@types/cheerio": "^0.22.10",
+    "@types/command-line-args": "^5.0.0",
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "command-line-args": "^5.0.2",
+    "rxjs": "^6.4.0",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3333"
+  }
+}
