@@ -65,10 +65,13 @@ const options = [
   console.log("format: "+ format+ " quality: "+quality+" dir: "+directory);
 
 
-function dl (link: string):Observable<any> {
-  return from(range(1,10)).pipe(concatMap(id => {
+function dl (link: string, end: number):Observable<any> {
+  return from(range(1, end)).pipe(concatMap(id => {
     return Observable.create((observer: any) => {
-    axios.get('https://image.slidesharecdn.com/vtu5thsemcseoperatingsystemsnotes10cs53-150807221642-lva1-app6892/95/vtu-6th-sem-cse-operating-systems-notes-15cs64-1-1024.jpg',{responseType: 'stream'})
+      console.log("111111: "+link + id + '-' + quality + '.jpg');
+      
+    axios.get(link + id + '-' + quality + '.jpg',
+    {responseType: 'stream'})
     .then((response) => {
       observer.next({res: response.data, id: id});
       observer.complete();
@@ -86,19 +89,16 @@ function dl (link: string):Observable<any> {
 //       console.log(err);
 //   }
 //   if (folder) {
-    dl('https://jsonplaceholder.typicode.com/users/').subscribe( (data) => {
-    //console.log( '[datadl] => ', data);
-    //let file = fs.createWriteStream(folder+'/'+data.id+'.jpg');
-    //const buff = Buffer(data.res);
-    // fs.writeFile('./input.jpg', data.res, function(err) {
-    //   if (err) {
-    //      return console.error(err);
-    //   }
-    // });
-        let file = fs.createWriteStream('./a.jpg');
+  let link = 'https://image.slidesharecdn.com/vtu5thsemcseoperatingsystemsnotes10cs53-150807221642-lva1-app6892/95/vtu-6th-sem-cse-operating-systems-notes-15cs64-1-1024.jpg';
+  link = link.split('1-1024.jpg')[0];  
+  dl(link, 50).subscribe( (data) => {
+        let file = fs.createWriteStream('./test/'+data.id+'.jpg');
         data.res.pipe(file);
+        file.on('finish', () => {
+          file.close();      
+        });
 
-    
+  
   });
 //  }});
 

@@ -4,7 +4,7 @@
   "description": "A slideshare downloader built with typescript",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node -- src/index.ts -l https://www.slideshare.net/vtunotesbysree/vtu-5th-sem-cse-operating-systems-notes-10cs53 -q low -p ../ -f 1",
+    "start": "nodemon --exec ts-node -- src/index.ts -l https://www.slideshare.net/vtunotesbysree/vtu-5th-sem-cse-operating-systems-notes-10cs53 -q medium -p ../ -f 1",
     "ts-node": "ts-node src/index.ts",
     "build": "tsc"
   },
