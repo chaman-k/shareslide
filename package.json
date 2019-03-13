@@ -13,6 +13,9 @@
   },
   "author": "chaman",
   "license": "ISC",
+  "bin": {
+    "shareslide": "dist/index.js"
+  },
   "bugs": {
     "url": "https://github.com/chaman-k/shareslide/issues"
   },
