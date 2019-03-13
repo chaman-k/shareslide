@@ -9,7 +9,7 @@ let quality = 638;
 let directory = path.dirname(process.argv[1]);
 let title = 'shareslide';
 const supportedFormats = ['jpg', 'ppt'];
-let format = 'jpg';
+let format = '';
 let tempFolder = '';
 let files: string[] = [];
 const options = [{
@@ -71,7 +71,10 @@ if (args.quality) {
  }
 }
 
-if (supportedFormats.includes(args.format)) {
+
+if (!args.format) {
+  format = 'jpg';
+} else if (supportedFormats.includes(args.format)) {
   format = args.format;
 } else {
   console.error(`Currently supported formats: ${supportedFormats}`);
@@ -88,7 +91,7 @@ async function download() {
   if (folder) {
     tempFolder = folder;
     
-   const req = https.get('https://www.slideshare.net/vtunotesbysree/vtu-5th-sem-cse-operating-systems-notes-10cs53', (res) => {
+   const req = https.get(args.link, (res) => {
     res.setEncoding("utf8");
     let chunks = "";
     res.on("data", (chunk: any) => {
@@ -121,7 +124,7 @@ async function download() {
 async function httpRequest(url: any, index: any, callback: any) {
  return new Promise(function(resolve, reject) {
   try{
-  let req = https.request(`${url}${index}-638.jpg`, (res) => {
+  let req = https.request(`${url}${index}-${quality}.jpg`, (res) => {
    console.log("requesting: " + index);
    // reject on bad status
    /*  if (res.statusCode < 200 || res.statusCode >= 300) {
