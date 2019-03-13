@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import commandLineArgs = require('command-line-args');
 const pptxgenjs = require('pptxgenjs');
 import * as path from 'path';
