@@ -4,8 +4,7 @@
   "description": "A slideshare downloader built with typescript",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node -- src/index.ts -l https://www.slideshare.net/vtunotesbysree/vtu-5th-sem-cse-operating-systems-notes-10cs53 -q medium -p ../test",
-    "ts-node": "ts-node src/index.ts",
+    "test": "ts-node src/index.ts -l https://www.slideshare.net/vtunotesbysree/vtu-5th-sem-cse-operating-systems-notes-10cs53 -q medium -p ../test",
     "build": "tsc"
   },
   "repository": {
@@ -13,20 +12,22 @@
     "url": "git+https://github.com/chaman-k/shareslide.git"
   },
   "author": "chaman",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/chaman-k/shareslide/issues"
   },
   "homepage": "https://github.com/chaman-k/shareslide#readme",
   "dependencies": {
-    "@types/async": "^2.4.1",
-    "@types/cheerio": "^0.22.10",
-    "@types/command-line-args": "^5.0.0",
     "async": "^2.6.2",
     "cheerio": "^1.0.0-rc.2",
     "command-line-args": "^5.0.2",
-    "pptxgenjs": "^2.5.0",
-    "ts-loader": "^5.3.3",
+    "pptxgenjs": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/async": "^2.4.1",
+    "@types/cheerio": "^0.22.10",
+    "@types/command-line-args": "^5.0.0",
+    "ts-node": "^8.0.3",
     "typescript": "^3.3.3333"
   }
 }
