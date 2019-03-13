@@ -1,4 +1,5 @@
 import commandLineArgs = require('command-line-args');
+const pptxgenjs = require('pptxgenjs');
 import * as path from 'path';
 import { eachOfLimit} from 'async';
 import * as https from 'https';
@@ -7,6 +8,8 @@ import * as cheerio from 'cheerio';
 let quality = 638;
 let directory = path.dirname(process.argv[1]);
 let title = 'shareslide';
+const supportedFormats = ['jpg', 'ppt'];
+let format = 'jpg';
 let tempFolder = '';
 let files: string[] = [];
 const options = [{
@@ -22,6 +25,11 @@ const options = [{
  {
   name: 'path',
   alias: 'p',
+  type: String
+ },
+ {
+  name: 'format',
+  alias: 'f',
   type: String
  }
 ];
@@ -63,7 +71,16 @@ if (args.quality) {
  }
 }
 
-function download() {
+if (supportedFormats.includes(args.format)) {
+  format = args.format;
+} else {
+  console.error(`Currently supported formats: ${supportedFormats}`);
+  process.exit(1);
+}
+
+async function download() {
+  return new Promise((resolve, reject) => {
+
  fs.mkdtemp(path.join(directory, title), (err, folder) => {
   if (err) {
    console.log(err);
@@ -88,7 +105,8 @@ function download() {
        files.push(`${link}${i}-${quality}.jpg`);
       }
       eachOfLimit(files, 5, httpRequest, () => {
-       console.log("done");
+       console.log("Download complete");
+       resolve(true);
       });
       return true;
      });
@@ -97,10 +115,12 @@ function download() {
    });
   }
  });
+  });
 }
 
 async function httpRequest(url: any, index: any, callback: any) {
  return new Promise(function(resolve, reject) {
+  try{
   let req = https.request(`${url}${index}-638.jpg`, (res) => {
    console.log("requesting: " + index);
    // reject on bad status
@@ -121,7 +141,32 @@ async function httpRequest(url: any, index: any, callback: any) {
    reject(err);
   });
   req.end();
+} catch(err) {
+  console.log(err);  
+}
  });
 }
 
-download();
+function stitchPPT() {
+  const pptx = new pptxgenjs();
+  for (let i=0;i<files.length;i++) {
+    pptx.addNewSlide().addImage({path: tempFolder+'/'+i+'.jpg',w: 10, h: 6});
+  }
+  pptx.save(title.substr(0, 250));
+}
+
+async function start() {
+  if(await download()) {
+    switch (format) {
+      case 'ppt': stitchPPT();
+        console.log("PPT Generated");
+        break;
+    
+      default:  console.log('Done');      
+        break;
+    }
+    
+  }
+}
+
+start();
