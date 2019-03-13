@@ -2,6 +2,11 @@
   "name": "shareslide",
   "version": "1.0.1",
   "description": "A slideshare downloader built with typescript",
+  "keywords": [
+    "slideshare",
+    "download",
+    "cli"
+  ],
   "main": "dist/index.js",
   "scripts": {
     "test": "ts-node src/index.ts -l https://www.slideshare.net/vtunotesbysree/vtu-5th-sem-cse-operating-systems-notes-10cs53 -q medium -p ../test -f ppt",
