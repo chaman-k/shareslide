@@ -7,7 +7,7 @@ import * as https from 'https';
 import * as fs from 'fs';
 import * as cheerio from 'cheerio';
 let quality = 638;
-let directory = path.dirname(process.argv[1]);
+let directory = process.cwd();
 let title = 'shareslide';
 const supportedFormats = ['jpg', 'ppt'];
 let format = '';
@@ -41,7 +41,7 @@ if (!(args.link && args.link.substring(0, 27) === "https://www.slideshare.net/")
  process.exit(1);
 } else {
  if (args.path) {
-  directory = path.join(path.dirname(process.argv[1]), args.path);
+  directory = path.join(process.cwd(), args.path);
   console.log(directory);
   try {
    fs.statSync(directory);

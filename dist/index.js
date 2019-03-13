@@ -44,7 +44,7 @@ var https = require("https");
 var fs = require("fs");
 var cheerio = require("cheerio");
 var quality = 638;
-var directory = path.dirname(process.argv[1]);
+var directory = process.cwd();
 var title = 'shareslide';
 var supportedFormats = ['jpg', 'ppt'];
 var format = '';
@@ -78,7 +78,7 @@ if (!(args.link && args.link.substring(0, 27) === "https://www.slideshare.net/")
 }
 else {
     if (args.path) {
-        directory = path.join(path.dirname(process.argv[1]), args.path);
+        directory = path.join(process.cwd(), args.path);
         console.log(directory);
         try {
             fs.statSync(directory);
