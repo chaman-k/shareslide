@@ -32,6 +32,11 @@ const options = [{
   name: 'format',
   alias: 'f',
   type: String
+ },
+ {
+  name: 'concurrent',
+  alias: 'c',
+  type: Number
  }
 ];
 const args = commandLineArgs(options);
@@ -108,7 +113,7 @@ async function download() {
       for (let i = 1; i <= end; i++) {
        files.push(`${link}${i}-${quality}.jpg`);
       }
-      eachOfLimit(files, 5, httpRequest, () => {
+      eachOfLimit(files, args.concurrent, httpRequest, () => {
        console.log("Download complete");
        resolve(true);
       });
